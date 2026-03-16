@@ -1,103 +1,44 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
 import Model3D from '@/components/Model3D'
 import ImageWithFallback from '@/components/ImageWithFallback'
 import styles from './EquipmentDetail.module.css'
+import { getEquipmentById } from '@/services/equipmentService'
+import { Equipment } from '@/models/Equipment'
 
 interface EquipmentDetailProps {
   equipmentId: string
 }
 
-const equipmentData: Record<string, any> = {
-  '1': {
-    name: 'Oculus Rift CV1',
-    type: 'VR Headset',
-    image: '/equipment/oculus-rift.svg',
-    image3d: '/equipment/oculus-rift-3d.glb',
-    characteristics: {
-      display: {
-        type: 'OLED',
-        resolutionPerEye: '1080×1200 пикселей',
-        totalResolution: '2160×1200 пикселей (2K)',
-        pixelDensity: '456 PPI',
-        diagonal: '7 дюймов',
-        refreshRate: '90 Гц',
-        supportedFrequencies: '90, 75, 72, 60 Гц',
-        responseTime: '3 мс',
-        fov: '110 градусов',
-      },
-      sensors: {
-        gyroscope: 'Да',
-        accelerometer: 'Да',
-        magnetometer: 'Да',
-        infrared: 'Да',
-        builtInTrackerRate: '1000 Гц',
-        cameraTrackerRate: '60 Гц',
-      },
-      audio: {
-        headphoneType: 'Встроенные',
-        audioOutput: '3D пространственный звук',
-      },
-      connectivity: {
-        videoOutput: 'HDMI 1.3',
-        usbPorts: '3×USB 3.0 + 1×USB 2.0',
-        power: 'От компьютера',
-      },
-      physical: {
-        headsetWeight: '470 грамм',
-        totalWeight: '560 грамм',
-        adjustment: 'Регулируемая посадка',
-      },
-      package: {
-        positionSensor: 'Есть (внешний)',
-        controller: 'Oculus Touch (беспроводной)',
-        gamepad: 'Xbox One',
-        remote: 'Да',
-        cables: 'USB и HDMI',
-        batteries: '2 шт. (АА)',
-      },
-      tracking: {
-        type: 'Внешний трекер + встроенные датчики',
-        dof: '6DoF (со связанными контроллерами)',
-        maxDistance: 'До 2-3 метров',
-      },
-      minRequirements: {
-        os: 'Windows 7 SP1 64-bit и выше',
-        processor: 'Intel Core i3-6100 / AMD FX4350 или лучше',
-        ram: '8 ГБ или выше',
-        graphics: 'NVIDIA GTX 1050TI / AMD RX 470 или лучше',
-      },
-      recommendedRequirements: {
-        os: 'Windows 10 64-bit',
-        processor: 'Intel Core i5-4590 / AMD Ryzen 5 1500X',
-        ram: '8+ ГБ RAM',
-        graphics: 'NVIDIA GTX 1060 / AMD Radeon RX 480 или лучше',
-        usb: 'Минимум 3 порта USB 3.0',
-      },
-    },
-  },
-  '2': {
-    name: 'Пятиосевой фрезерный обрабатывающий центр',
-    type: 'Milling Machine',
-    manufacturer: 'SHARK',
-    image: '/equipment/milling-machine.svg',
-    characteristics: {
-      manufacturer: 'SHARK',
-      class: 'Горизонтальный обрабатывающий центр с ЧПУ',
-      materials: 'Металлы, пластик, дерево',
-      tooling: 'Различные типы фрез, сверл, резцов',
-      software: 'Программы для ЧПУ, совместимые с оборудованием',
-    },
-  },
-}
-
 export default function EquipmentDetail({ equipmentId }: EquipmentDetailProps) {
   const router = useRouter()
   const [viewMode, setViewMode] = useState<'3d' | 'jpg'>('jpg')
-  const equipment = equipmentData[equipmentId]
+  const [equipment, setEquipment] = useState<Equipment | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const getEquipment = async () => {
+      setIsLoading(true)
+      const equipment = await getEquipmentById(equipmentId)
+
+      setIsLoading(false)
+      setEquipment(equipment)
+    }
+
+    getEquipment()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <Header showBack />
+        <div className={`bigLoader ${styles.loader}`}></div>
+      </div>
+    )
+  }
 
   if (!equipment) {
     return (

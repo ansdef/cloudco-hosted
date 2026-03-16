@@ -1,21 +1,8 @@
 // Сервис для работы с оборудованием
 // Интеграция с бэкенд API
 
+import { Equipment } from '@/models/Equipment'
 import { api } from '@/utils/api'
-
-export interface Equipment {
-  id: string
-  name: string
-  type: string
-  manufacturer?: string
-  address: string
-  hours: string
-  status: 'open' | 'closed' | 'maintenance'
-  distance?: string
-  image?: string
-  image3d?: string
-  characteristics?: Record<string, any>
-}
 
 export interface EquipmentFilters {
   type?: string
