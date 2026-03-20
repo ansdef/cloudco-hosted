@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import styles from './Header.module.css'
+import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
   showBack?: boolean
@@ -9,6 +10,8 @@ interface HeaderProps {
 }
 
 export default function Header({ showBack = false, title }: HeaderProps) {
+  const router = useRouter();
+
   return (
     <header className={styles.header}>
       <div className={styles.statusBar}>
@@ -39,11 +42,12 @@ export default function Header({ showBack = false, title }: HeaderProps) {
         )}
         <div className={styles.rightActions}>
           <button className={styles.notificationButton}>🔔</button>
-          <div className={styles.profilePicture}>
+
+          <button className={styles.profilePicture} onClick={() => router.push('/login')}>
             <div className={styles.profilePlaceholder}>
               <span>👤</span>
             </div>
-          </div>
+          </button>
         </div>
       </div>
       {title && <h1 className={styles.pageTitle}>{title}</h1>}

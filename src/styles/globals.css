@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --font-onest: 'Onest', sans-serif;
   --font-calvino: 'Calvino Display Italic', 'Playfair Display', serif;
@@ -71,4 +75,60 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+
+@layer base {
+  :root {
+    /* Фон и текст */
+    --background: 0 0% 4%;        /* #0a0a0a → чёрный с 4% светлоты */
+    --foreground: 0 0% 100%;      /* #ffffff */
+
+    /* Карточки и попапы */
+    --card: 0 0% 12%;             /* #1f1f1f */
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 10%;          /* #1a1a1a (bg-secondary) */
+    --popover-foreground: 0 0% 100%;
+
+    /* Основной акцент (было --accent-purple #8b5cf6) */
+    --primary: 258 89% 66%;       /* приблизительно #8b5cf6 */
+    --primary-foreground: 0 0% 100%;
+
+    /* Вторичный акцент (было --accent-blue #3b82f6) */
+    --secondary: 217 91% 60%;     /* #3b82f6 */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Дополнительный акцент (было --accent-pink #ec4899) */
+    --accent: 330 81% 60%;        /* #ec4899 */
+    --accent-foreground: 0 0% 100%;
+
+    /* Приглушённые цвета */
+    --muted: 0 0% 16%;            /* близко к #2a2a2a (bg-button) */
+    --muted-foreground: 0 0% 69%; /* #b0b0b0 (text-secondary) */
+
+    /* Деструктивный цвет (оставим красный, но можно задать свой) */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Границы */
+    --border: 0 0% 16%;           /* #2a2a2a (border-color) */
+    --input: 0 0% 16%;
+    --ring: 258 89% 66%;          /* как --primary */
+
+    /* Радиус */
+    --radius: 1rem;               /* 16px (у вас --border-radius: 12px, но можно оставить 1rem или изменить) */
+
+    /* Градиенты (скопированы из верхнего :root, но оставлены как есть) */
+    --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    --gradient-card: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    --gradient-accent: linear-gradient(180deg, #8b5cf6 0%, #ec4899 100%);
+
+    /* Статусы (если нужны) */
+    --status-open: 150 70% 50%;
+    --status-closed: 0 72% 51%;
+
+    /* Тени */
+    --shadow-glow: 0 0 40px hsl(258 89% 66% / 0.3);
+    --shadow-card: 0 8px 24px hsl(0 0% 0% / 0.4);
+  }
 }
