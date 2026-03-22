@@ -1,24 +1,29 @@
-import { useToast } from "@/hooks/use-toast";
-import { Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from "@/components/ui/toast";
+'use client'
+import { useToast } from '@/hooks/useToast'
+import { cn } from '@/utils/utils'
 
 export function Toaster() {
-  const { toasts } = useToast();
+  const { toasts, removeToast } = useToast()
 
   return (
-    <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
-        return (
-          <Toast key={id} {...props}>
-            <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && <ToastDescription>{description}</ToastDescription>}
-            </div>
-            {action}
-            <ToastClose />
-          </Toast>
-        );
-      })}
-      <ToastViewport />
-    </ToastProvider>
-  );
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+      {toasts.map((toast) => (
+        <div
+          key={toast.id}
+          className={cn(
+            'px-4 py-3 rounded-lg text-white text-sm shadow-lg cursor-pointer',
+            {
+              'bg-green-600': toast.type === 'success',
+              'bg-red-600': toast.type === 'error',
+              'bg-blue-600': toast.type === 'info',
+              'bg-yellow-600': toast.type === 'warning',
+            }
+          )}
+          onClick={() => removeToast(toast.id)}
+        >
+          {toast.message}
+        </div>
+      ))}
+    </div>
+  )
 }
