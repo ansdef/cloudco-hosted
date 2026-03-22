@@ -85,61 +85,66 @@ export default function EquipmentDetail({ equipmentId }: EquipmentDetailProps) {
         )}
       </div>
 
-      <div className={styles.content}>
-        <h1 className={styles.title}>{equipment.name}</h1>
-        
-        <div className={styles.characteristics}>
-          <h2 className={styles.sectionTitle}>Характеристики</h2>
+    {equipment.characteristics && (
+      <div>
+        <div className={styles.content}>
+          <h1 className={styles.title}>{equipment.name}</h1>
           
-          {equipment.characteristics.manufacturer && (
-            <div className={styles.characteristic}>
-              <span className={styles.label}>Производитель:</span>
-              <span className={styles.value}>{equipment.characteristics.manufacturer}</span>
-            </div>
-          )}
-          
-          {equipment.characteristics.class && (
-            <div className={styles.characteristic}>
-              <span className={styles.label}>Класс/тип оборудования:</span>
-              <span className={styles.value}>{equipment.characteristics.class}</span>
-            </div>
-          )}
-          
-          {equipment.characteristics.materials && (
-            <div className={styles.characteristic}>
-              <span className={styles.label}>Материалы:</span>
-              <span className={styles.value}>{equipment.characteristics.materials}</span>
-            </div>
-          )}
-          
-          {equipment.characteristics.tooling && (
-            <div className={styles.characteristic}>
-              <span className={styles.label}>Оснастка:</span>
-              <span className={styles.value}>{equipment.characteristics.tooling}</span>
-            </div>
-          )}
-          
-          {equipment.characteristics.software && (
-            <div className={styles.characteristic}>
-              <span className={styles.label}>Софт:</span>
-              <span className={styles.value}>{equipment.characteristics.software}</span>
-            </div>
-          )}
+          <div className={styles.characteristics}>
+            <h2 className={styles.sectionTitle}>Характеристики</h2>
+            
+            {equipment.characteristics.manufacturer && (
+              <div className={styles.characteristic}>
+                <span className={styles.label}>Производитель:</span>
+                <span className={styles.value}>{equipment.characteristics.manufacturer}</span>
+              </div>
+            )}
+            
+            {equipment.characteristics.class && (
+              <div className={styles.characteristic}>
+                <span className={styles.label}>Класс/тип оборудования:</span>
+                <span className={styles.value}>{equipment.characteristics.class}</span>
+              </div>
+            )}
+            
+            {equipment.characteristics.materials && (
+              <div className={styles.characteristic}>
+                <span className={styles.label}>Материалы:</span>
+                <span className={styles.value}>{equipment.characteristics.materials}</span>
+              </div>
+            )}
+            
+            {equipment.characteristics.tooling && (
+              <div className={styles.characteristic}>
+                <span className={styles.label}>Оснастка:</span>
+                <span className={styles.value}>{equipment.characteristics.tooling}</span>
+              </div>
+            )}
+            
+            {equipment.characteristics.software && (
+              <div className={styles.characteristic}>
+                <span className={styles.label}>Софт:</span>
+                <span className={styles.value}>{equipment.characteristics.software}</span>
+              </div>
+            )}
 
-          {/* Для Oculus Rift - детальные характеристики */}
-          {equipment.characteristics.display && (
-            <>
-              <h3 className={styles.subsectionTitle}>Дисплей и оптика</h3>
-              {Object.entries(equipment.characteristics.display).map(([key, value]) => (
-                <div key={key} className={styles.characteristic}>
-                  <span className={styles.label}>{key}:</span>
-                  <span className={styles.value}>{value as string}</span>
-                </div>
-              ))}
-            </>
-          )}
+            {/* Для Oculus Rift - детальные характеристики */}
+            {equipment.characteristics.display && (
+              <>
+                <h3 className={styles.subsectionTitle}>Дисплей и оптика</h3>
+                {Object.entries(equipment.characteristics.display).map(([key, value]) => (
+                  <div key={key} className={styles.characteristic}>
+                    <span className={styles.label}>{key}:</span>
+                    <span className={styles.value}>{value as string}</span>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
         </div>
       </div>
+    )}
+
 
       <button 
         className={styles.bookButton}

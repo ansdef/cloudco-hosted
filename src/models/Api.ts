@@ -15,6 +15,8 @@ export interface Institution {
   logo?: string;
   images: string[];
   isOpen: boolean;
+  hours?: string;
+  courses?: Course[];
   createdAt: string;
   updatedAt: string;
 }
