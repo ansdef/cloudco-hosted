@@ -97,7 +97,7 @@ export default function InstitutionDetail({ institutionId }: InstitutionDetailPr
             <button className={styles.seeAll}>→</button>
           </div>
           <div className={styles.coursesGrid}>
-            {institution.courses.map((course: any) => (
+            {institution.courses?.map((course: any) => (
               <div key={course.id} className={styles.courseCard}>
                 <h3 className={styles.courseTitle}>{course.title}</h3>
                 <button 
