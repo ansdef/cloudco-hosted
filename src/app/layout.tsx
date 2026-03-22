@@ -1,8 +1,20 @@
 import type { Metadata } from 'next'
-import { Onest, Calvino } from '@/styles/fonts'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ToastProvider } from '@/components/ToastProvider'
 import '@/styles/globals.css'
+
+import { Onest, Playfair_Display } from 'next/font/google';
+
+const onest = Onest({ subsets: ['latin', 'cyrillic'], variable: '--font-onest' });
+const playfair = Playfair_Display({ subsets: ['latin', 'cyrillic'], variable: '--font-playfair' });
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="ru" className={`${onest.variable} ${playfair.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
 
 export const metadata: Metadata = {
   title: 'Cloud.co - Облачный коворкинг',
