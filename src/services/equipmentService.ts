@@ -23,11 +23,16 @@ export async function getEquipmentList(filters?: EquipmentFilters): Promise<Equi
     const query = params.toString()
     const endpoint = query ? `/equipment?${query}` : '/equipment'
     
-    const response = await api.get<Equipment[]>(endpoint)
-    return response.data
+    const response = await api.get<any[]>(endpoint)
+    return response.data.map((item: any) => ({
+      ...item,
+      hours: item.workingHours,
+      status: item.isOpen ? 'open' : 'closed',
+      address: item.Institution?.address || '',
+      type: item.type || '',
+    }))
   } catch (error) {
     console.error('Ошибка загрузки оборудования:', error)
-    // Возвращаем пустой массив при ошибке (fallback на hardcoded данные)
     return []
   }
 }
