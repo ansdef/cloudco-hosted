@@ -32,12 +32,12 @@ export default function HomePage() {
       <div className={styles.servicesGrid}>
         <ServiceCard
           title="Арендовать компьютер"
-          image="/computer.svg"
+          image="/computer.png"
           onClick={() => router.push('/equipment?type=computer')}
         />
         <ServiceCard
           title="Использовать оборудование"
-          image="/equipment.svg"
+          image="/printer.png"
           onClick={() => router.push('/equipment')}
         />
       </div>

@@ -18,26 +18,30 @@ export default function YandexMap() {
       ymaps.ready(() => {
         if (mapInstance.current) return;
 
-        // @ts-ignore
-        mapInstance.current = new ymaps.Map(mapRef.current, {
-          center: [55.751244, 37.618423],
-          zoom: 10,
-          controls: ["zoomControl"],
-          theme: 'dark'
-        });
+        try {
+          // @ts-ignore
+          mapInstance.current = new ymaps.Map(mapRef.current, {
+            center: [55.751244, 37.618423],
+            zoom: 10,
+            controls: ["zoomControl"],
+            theme: 'dark'
+          });
+  
+          const placemark = new ymaps.Placemark(
+            [55.751244, 37.618423],
+            {},
+            {
+              iconLayout: "default#image",
+              iconImageHref: "/cluster.png", // ← твоя иконка (public/)
+              iconImageSize: [40, 40],
+              iconImageOffset: [-20, -40], // центрирование
+            }
+          );
+  
+          mapInstance.current.geoObjects.add(placemark);
+        } catch {
 
-        const placemark = new ymaps.Placemark(
-          [55.751244, 37.618423],
-          {},
-          {
-            iconLayout: "default#image",
-            iconImageHref: "/cluster.png", // ← твоя иконка (public/)
-            iconImageSize: [40, 40],
-            iconImageOffset: [-20, -40], // центрирование
-          }
-        );
-
-        mapInstance.current.geoObjects.add(placemark);
+        }
       });
     };
 
