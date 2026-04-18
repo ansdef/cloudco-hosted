@@ -12,17 +12,18 @@ const YandexMap = dynamic(() => import("@/components/YandexMap"), {
 
 interface HeaderProps {
   showBack?: boolean
+  showMobileMap?: boolean
   title?: string
 }
 
-export default function Header({ showBack = false, title }: HeaderProps) {
+export default function Header({ showBack = false, showMobileMap = false, title }: HeaderProps) {
   const { isAuthenticated } = useAuth();
   const [isMapShown, setIsMapShown] = useState(false);
-  const [isMapFixed, setIsMapFixed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMapFixed(window.innerWidth < 650);
+      setIsMobile(window.innerWidth < 650);
     };
 
     handleResize();
@@ -59,7 +60,7 @@ export default function Header({ showBack = false, title }: HeaderProps) {
             </div>
             <span className={styles.logoText}>Cloud.co-</span>
           </Link>
-          {!isMapFixed && (
+          {!isMobile && (
             <button className={styles.filesButton} onClick={() => setIsMapShown(prev => !prev)}>
               🗺️ Карты
             </button>
@@ -84,7 +85,7 @@ export default function Header({ showBack = false, title }: HeaderProps) {
 
       <div
         className="overflow-hidden transition-[height]"
-        style={{ height: (isMapShown || isMapFixed ? '400px' : '0px'), transitionDuration: '1.5s' }}
+        style={{ height: (isMapShown || (isMobile && showMobileMap) ? '400px' : '0px'), transitionDuration: '1.5s' }}
       >
         <YandexMap />
       </div>

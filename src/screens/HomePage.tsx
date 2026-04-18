@@ -19,7 +19,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <Header showMobileMap />
       <div className={styles.backgroundPattern}></div>
       
       <SearchBar 
